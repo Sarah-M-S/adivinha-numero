@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset= "UTF-8">
+
+<input/>
+<button>Compare com o segredo</button>
+<script>
+
+    function sorteia(){ //sortear números de 1 a 10 que serão inseridos no array
+        return Math.round(Math.random() * 10);
+    }
+    
+    function sorteiaNumeros(quantidade){ //adicionar os nºs sorteados em índices do array
+        var segredos = []; //var local criando array vazio
+        var numero = 1;
+
+        while(numero <= quantidade){ //quantidade é determinada pelo parâmetro passado na função sorteiaNumeros()
+            var numeroAleatorio = sorteia(); //chamando função sorteia para sortear um numero aleatorio
+            if(numeroAleatorio != 0){
+                var achouNumeroAleatorio = false; //var que indica se o numero gerado previamente está no array segredos ou nao
+
+                for(var posicao = 0; posicao < segredos.length; posicao++){ //laço para varrer os índices do array segredos
+                    if(segredos[posicao] == numeroAleatorio){ //if comparando numeros do array com o numero aleatorio 
+                        achouNumeroAleatorio = true; //se o numero estiver no array, o laço é quebrado
+                        break;
+                    }
+                }//teste3
+
+                if(achouNumeroAleatorio == false){
+                    segredos.push(numeroAleatorio); //se o numero aleatório não estiver no array segredos, aqui o adicionamos ao array
+                    numero++; //só incrementamos a variável se o elemento for adicionado no array,  pq caso contrário precisamos repetir o laço
+                }
+            }
+        }
+
+        return segredos;
+    }
+
+    var segredos = sorteiaNumeros(3); //chamada da função que adiciona numeros aleatórios a um array de, no caso, 3 posições
+    console.log(segredos)
+    var input = document.querySelector("input"); //método para armazenar dados de uma tag (no caso a tag input) HTML em uma variável js
+    input.focus(); //colocar foco no campo de texto input sem que o usuário tenha que clicar nele
+
+    function verifica(){
+
+        var acertou = false;
+
+        for(let i = 0; i <= segredos.length; i++){
+            if(input.value == segredos[i]){
+                alert("Você acertou, parabéns");
+                acertou = true;
+                break;
+            }
+        }
+
+        if(acertou == false){
+            alert("Você errou!");
+        }
+
+        input.value = ""; //mudando o valor do input para vazio após o click no botão
+        input.focus();
+    }
+    
+    var button = document.querySelector("button");
+    button.onclick = verifica;//onclick indica que algo acontece quando a tag HTML associada a uma variável JS for clicada, nesse caso chamará uma função
+    
+</script>
